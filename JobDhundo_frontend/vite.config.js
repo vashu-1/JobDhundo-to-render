@@ -14,4 +14,6 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
+  // Vite automatically makes env variables with the VITE_ prefix available in the client
+  // No need for additional configuration
 });
