@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -6,16 +6,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "./ui/dialog";
-import { Label } from "./ui/label";
-import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
-import { useSelector } from "react-redux";
-import { USER_API_END_POINT } from "@/utils/constant";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { toast } from "sonner";
-import { setUser } from "@/redux/authSlice";
+} from './ui/dialog';
+import { Label } from './ui/label';
+import { Button } from './ui/button';
+import { Loader2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { setUser } from '@/redux/authSlice';
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
@@ -50,22 +49,22 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     e.preventDefault();
     const formData = new FormData();
 
-    formData.append("fullname", input.fullname);
-    formData.append("email", input.email);
-    formData.append("phoneNumber", input.phoneNumber);
-    formData.append("bio", input.bio);
-    formData.append("skills", input.skills);
+    formData.append('fullname', input.fullname);
+    formData.append('email', input.email);
+    formData.append('phoneNumber', input.phoneNumber);
+    formData.append('bio', input.bio);
+    formData.append('skills', input.skills);
     if (input.file) {
-      formData.append("file", input.file);
+      formData.append('file', input.file);
     }
     try {
       setLoading(true);
       const res = await axios.put(
-        `${USER_API_END_POINT}/profile/update`,
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/user/profile/update`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
           withCredentials: true,
         }
@@ -77,7 +76,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.message || "Something went wrong");
+      toast.error(error?.response?.data?.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }

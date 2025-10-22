@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import { JOB_API_END_POINT } from "@/utils/constant";
-import { useDispatch, useSelector } from "react-redux";
-import { setAllJobs } from "@/redux/jobSlice";
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllJobs } from '@/redux/jobSlice';
 
 const useGetAllJobs = () => {
   const dispatch = useDispatch();
@@ -11,7 +10,7 @@ const useGetAllJobs = () => {
     const fetchAllJobs = async () => {
       try {
         const res = await axios.get(
-          `${JOB_API_END_POINT}/get?keyword=${searchedQuery}`,
+          `https://jobdhundo-backend-deploy.onrender.com/api/v1/job/get?keyword=${searchedQuery}`,
           {
             withCredentials: true,
           }

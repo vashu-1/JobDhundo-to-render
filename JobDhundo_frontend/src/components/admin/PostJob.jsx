@@ -13,7 +13,6 @@ import {
 } from '../ui/select';
 import { SelectValue } from '@radix-ui/react-select';
 import axios from 'axios';
-import { JOB_API_END_POINT } from '@/utils/constant';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';

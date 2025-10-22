@@ -1,17 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
-import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { LogOut } from "lucide-react";
-import { User2 } from "lucide-react";
-import { useSelector } from "react-redux";
-import { toast } from "sonner";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { setUser } from "@/redux/authSlice";
-import { USER_API_END_POINT } from "@/utils/constant";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '../ui/button';
+import { Popover, PopoverTrigger, PopoverContent } from '../ui/popover';
+import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
+import { LogOut } from 'lucide-react';
+import { User2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { setUser } from '@/redux/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -20,17 +19,20 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get(`${USER_API_END_POINT}/logout`, {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/user/logout`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         dispatch(setUser(null));
-        navigate("/");
+        navigate('/');
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.error("Logout failed:", error);
-      toast.error(error?.response?.data?.message || "Logout failed");
+      console.error('Logout failed:', error);
+      toast.error(error?.response?.data?.message || 'Logout failed');
     }
   };
   return (
@@ -43,7 +45,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex font-medium justify-between items-center gap-5">
-            {user && user.role === "recruiter" ? (
+            {user && user.role === 'recruiter' ? (
               <>
                 <li>
                   <Link to="/admin/companies">Companies</Link>
@@ -107,7 +109,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col my-2 text-gray-600">
-                  {user && user.role === "student" ? (
+                  {user && user.role === 'student' ? (
                     <>
                       <div className="flex w-fit items-center gap-2 cursor-pointer">
                         <User2 />

@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import axios from "axios";
-import { JOB_API_END_POINT, APPLICATION_API_END_POINT } from "@/utils/constant";
-import { setSingleJob } from "@/redux/jobSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "sonner";
+import React, { useState } from 'react';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { setSingleJob } from '@/redux/jobSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'sonner';
 
 const JobDescription = () => {
   const params = useParams();
@@ -26,7 +25,7 @@ const JobDescription = () => {
   const applyJobHandler = async () => {
     try {
       const res = await axios.post(
-        `${APPLICATION_API_END_POINT}/apply/${jobId}`,
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/application/apply/${jobId}`,
         {},
         { withCredentials: true }
       );
@@ -49,9 +48,12 @@ const JobDescription = () => {
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
-        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          `https://jobdhundo-backend-deploy.onrender.com/api/v1/job/get/${jobId}`,
+          {
+            withCredentials: true,
+          }
+        );
         // console.log(res.data);
 
         if (res.data.success) {
@@ -93,11 +95,11 @@ const JobDescription = () => {
           disabled={isApplied}
           className={`rounded-lg ${
             isApplied
-              ? "bg-gray-600 cursor-not-allowed"
-              : "bg-[#7209b7] hover:bg-[#5b0f8e]"
+              ? 'bg-gray-600 cursor-not-allowed'
+              : 'bg-[#7209b7] hover:bg-[#5b0f8e]'
           } text-white`}
         >
-          {isApplied ? "Already Applied" : "Apply Now"}
+          {isApplied ? 'Already Applied' : 'Apply Now'}
         </Button>
       </div>
       <h1 className="border-b-2 border-b-gray-300 font-medium py-4">
@@ -105,45 +107,45 @@ const JobDescription = () => {
       </h1>
       <div className="my-4">
         <h1 className="font-bold my-1">
-          Role:{" "}
+          Role:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.title}
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Location:{" "}
+          Location:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.location}
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Description:{" "}
+          Description:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.description}
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Experience:{" "}
+          Experience:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.experienceLevel} yrs
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Salary:{" "}
+          Salary:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.salary} LPA
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Total Applicants:{" "}
+          Total Applicants:{' '}
           <span className="pl-4 font-normal text-gray-800">
             {singleJob?.applications?.length}
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Posted Date:{" "}
+          Posted Date:{' '}
           <span className="pl-4 font-normal text-gray-800">
-            {singleJob?.createdAt.split("T")[0]}
+            {singleJob?.createdAt.split('T')[0]}
           </span>
         </h1>
       </div>

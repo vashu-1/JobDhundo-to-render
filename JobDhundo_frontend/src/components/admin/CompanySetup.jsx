@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import Navbar from "../shared/Navbar";
-import { ArrowLeft } from "lucide-react";
-import { Button } from "../ui/button";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { COMPANY_API_END_POINT } from "@/utils/constant";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import useGetCompanyById from "@/hooks/useGetCompanyById";
+import React, { useState } from 'react';
+import Navbar from '../shared/Navbar';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import useGetCompanyById from '@/hooks/useGetCompanyById';
 
 const CompanySetup = () => {
   const params = useParams();
   useGetCompanyById(params.id);
   const [input, setInput] = useState({
-    name: "",
-    description: "",
-    website: "",
-    location: "",
+    name: '',
+    description: '',
+    website: '',
+    location: '',
     file: null,
   });
   const { singleCompany } = useSelector((store) => store.company);
@@ -39,29 +38,29 @@ const CompanySetup = () => {
     e.preventDefault();
     // console.log(input);
     const formData = new FormData();
-    formData.append("name", input.name);
-    formData.append("description", input.description);
-    formData.append("website", input.website);
-    formData.append("location", input.location);
+    formData.append('name', input.name);
+    formData.append('description', input.description);
+    formData.append('website', input.website);
+    formData.append('location', input.location);
 
     if (input.file) {
-      formData.append("file", input.file);
+      formData.append('file', input.file);
     }
     try {
       setLoading(true);
       const res = await axios.put(
-        `${COMPANY_API_END_POINT}/update/${params.id}`,
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/company/update/${params.id}`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
           withCredentials: true,
         }
       );
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/admin/companies");
+        navigate('/admin/companies');
       }
     } catch (error) {
       console.log(error);
@@ -74,10 +73,10 @@ const CompanySetup = () => {
 
   useEffect(() => {
     setInput({
-      name: singleCompany?.name || "",
-      description: singleCompany?.description || "",
-      website: singleCompany?.website || "",
-      location: singleCompany?.location || "",
+      name: singleCompany?.name || '',
+      description: singleCompany?.description || '',
+      website: singleCompany?.website || '',
+      location: singleCompany?.location || '',
       file: singleCompany?.file || null,
     });
   }, [singleCompany]);
@@ -90,7 +89,7 @@ const CompanySetup = () => {
             <Button
               variant="outline"
               className="flex items-center gap-2 text-gray-500 font-semibold"
-              onClick={() => navigate("/admin/companies")}
+              onClick={() => navigate('/admin/companies')}
             >
               <ArrowLeft />
               <span>Back</span>
