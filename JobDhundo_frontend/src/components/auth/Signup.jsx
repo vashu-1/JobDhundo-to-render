@@ -1,27 +1,27 @@
-import React from "react";
-import Navbar from "../shared/Navbar";
+import React from 'react';
+import Navbar from '../shared/Navbar';
 
-import { Input } from "../ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "../ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { USER_API_END_POINT } from "@/utils/constant";
-import axios from "axios";
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "@/redux/authSlice";
-import { Loader2 } from "lucide-react";
+import { Input } from '../ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Button } from '../ui/button';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { USER_API_END_POINT } from '@/utils/constant';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
 
 const Signup = () => {
   const [input, setInput] = useState({
-    fullname: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    role: "",
-    file: "",
+    fullname: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    role: '',
+    file: '',
   });
   const navigate = useNavigate();
   const { loading, user } = useSelector((store) => store.auth);
@@ -44,25 +44,29 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("fullname", input.fullname);
-    formData.append("email", input.email);
-    formData.append("phoneNumber", input.phoneNumber);
-    formData.append("password", input.password);
-    formData.append("role", input.role);
+    formData.append('fullname', input.fullname);
+    formData.append('email', input.email);
+    formData.append('phoneNumber', input.phoneNumber);
+    formData.append('password', input.password);
+    formData.append('role', input.role);
     if (input.file) {
-      formData.append("file", input.file);
+      formData.append('file', input.file);
     }
     // console.log(input);
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
-        headers: {
-          "content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/user/register`,
+        formData,
+        {
+          headers: {
+            'content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
-        navigate("/login");
+        navigate('/login');
         toast.success(res.data.message);
       }
     } catch (error) {
@@ -74,7 +78,7 @@ const Signup = () => {
       ) {
         toast.error(error.response.data.message);
       } else {
-        toast.error("Something went wrong. Please try again later.");
+        toast.error('Something went wrong. Please try again later.');
       }
     } finally {
       dispatch(setLoading(false));
@@ -82,7 +86,7 @@ const Signup = () => {
   };
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, []);
   return (
@@ -144,7 +148,7 @@ const Signup = () => {
                   type="radio"
                   name="role"
                   value="student"
-                  checked={input.role === "student"}
+                  checked={input.role === 'student'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -155,7 +159,7 @@ const Signup = () => {
                   type="radio"
                   name="role"
                   value="recruiter"
-                  checked={input.role === "recruiter"}
+                  checked={input.role === 'recruiter'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -182,7 +186,7 @@ const Signup = () => {
             </Button>
           )}
           <span className="text-sm">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link to="/login" className="text-blue-600">
               Login
             </Link>

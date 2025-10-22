@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import Navbar from "../shared/Navbar";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
-import { COMPANY_API_END_POINT } from "@/utils/constant";
-import { toast } from "sonner";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setSingleCompany } from "@/redux/companySlice";
+import React, { useState } from 'react';
+import Navbar from '../shared/Navbar';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { useNavigate } from 'react-router-dom';
+import { COMPANY_API_END_POINT } from '@/utils/constant';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setSingleCompany } from '@/redux/companySlice';
 // import { setLoading } from "@/redux/authSlice";
 
 const CompanyCreate = () => {
@@ -19,13 +19,13 @@ const CompanyCreate = () => {
   const registerNewCompany = async () => {
     try {
       const res = await axios.post(
-        `${COMPANY_API_END_POINT}/register`,
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/company/register`,
         {
           companyName,
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           withCredentials: true,
         }
@@ -66,7 +66,7 @@ const CompanyCreate = () => {
           <Button
             variant="outline"
             onClick={() => {
-              navigate("/admin/companies");
+              navigate('/admin/companies');
             }}
           >
             Cancel

@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import Navbar from "../shared/Navbar";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import Navbar from '../shared/Navbar';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { useSelector } from 'react-redux';
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
-} from "../ui/select";
-import { SelectValue } from "@radix-ui/react-select";
-import axios from "axios";
-import { JOB_API_END_POINT } from "@/utils/constant";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+} from '../ui/select';
+import { SelectValue } from '@radix-ui/react-select';
+import axios from 'axios';
+import { JOB_API_END_POINT } from '@/utils/constant';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 
 const PostJob = () => {
   const [input, setInput] = useState({
-    title: "",
-    description: "",
-    requirements: "",
-    salary: "",
-    location: "",
-    jobType: "",
-    experience: "",
+    title: '',
+    description: '',
+    requirements: '',
+    salary: '',
+    location: '',
+    jobType: '',
+    experience: '',
     position: 0,
-    companyId: "",
+    companyId: '',
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -52,15 +52,19 @@ const PostJob = () => {
     // console.log(input);
     try {
       setLoading(true);
-      const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/job/post`,
+        input,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
       if (res.data.success) {
         toast.success(res.data.message);
-        navigate("/admin/jobs");
+        navigate('/admin/jobs');
       }
     } catch (error) {
       console.log(error);

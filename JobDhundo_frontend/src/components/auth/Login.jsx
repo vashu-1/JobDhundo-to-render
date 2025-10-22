@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../shared/Navbar";
+import React, { useEffect, useState } from 'react';
+import Navbar from '../shared/Navbar';
 
-import { Input } from "../ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "../ui/button";
-import { Link, useNavigate } from "react-router-dom";
-import { USER_API_END_POINT } from "@/utils/constant";
-import axios from "axios";
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "@/redux/authSlice";
-import { Loader2 } from "lucide-react";
-import { setUser } from "@/redux/authSlice";
+import { Input } from '../ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Button } from '../ui/button';
+import { Link, useNavigate } from 'react-router-dom';
+import { USER_API_END_POINT } from '@/utils/constant';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
+import { setUser } from '@/redux/authSlice';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [input, setInput] = useState({
-    email: "",
-    password: "",
-    role: "",
+    email: '',
+    password: '',
+    role: '',
   });
   const { loading, user } = useSelector((store) => store.auth);
 
@@ -37,25 +37,29 @@ const Login = () => {
     console.log(input);
     try {
       dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `https://jobdhundo-backend-deploy.onrender.com/api/v1/user/login`,
+        input,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
       if (res.data && res.data.success) {
         dispatch(setUser(res.data.user));
-        toast.success(res.data.message || "Login successful");
-        navigate("/");
+        toast.success(res.data.message || 'Login successful');
+        navigate('/');
       } else {
-        toast.error(res.data?.message || "Login failed");
+        toast.error(res.data?.message || 'Login failed');
       }
     } catch (error) {
       console.log(error);
       const message =
         error?.response?.data?.message ||
         error.message ||
-        "Something went wrong";
+        'Something went wrong';
       toast.error(message);
     } finally {
       dispatch(setLoading(false));
@@ -63,7 +67,7 @@ const Login = () => {
   };
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, []);
   return (
@@ -108,7 +112,7 @@ const Login = () => {
                   type="radio"
                   name="role"
                   value="student"
-                  checked={input.role === "student"}
+                  checked={input.role === 'student'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -119,7 +123,7 @@ const Login = () => {
                   type="radio"
                   name="role"
                   value="recruiter"
-                  checked={input.role === "recruiter"}
+                  checked={input.role === 'recruiter'}
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
@@ -138,7 +142,7 @@ const Login = () => {
           )}
 
           <span className="text-sm">
-            Don't have an account?{" "}
+            Don't have an account?{' '}
             <Link to="/signup" className="text-blue-600">
               Signup
             </Link>
