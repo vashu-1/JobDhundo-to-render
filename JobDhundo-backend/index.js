@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  process.env.CLIENT_BASE_URL,
+  'https://jobdhundo-frontend-deploy.onrender.com',
   'http://localhost:5173', // Explicit frontend URL for development
 ];
 
